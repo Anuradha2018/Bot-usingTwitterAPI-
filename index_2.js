@@ -4,6 +4,13 @@ var config = require('./config');
 
 var T = new Twit(config);
 
+
+//Setting up a user stream
+var stream = T.stream('user');
+
+//Anytimesomeone follows me 
+stream.on('follow', followed);
+
 setInterval(tweetIt, 1000*20);
 
 tweetIt();

@@ -1,3 +1,4 @@
+console.log('The follow bot is starting');
 var Twit = require('twit');
 
 var config = require('./config');
@@ -11,12 +12,20 @@ var stream = T.stream('user');
 //Anytimesomeone follows me 
 stream.on('follow', followed);
 
+
+//a callback for 'follow' event, when someone follows me The function is executed
+function followed(eventMsg){
+    var name = eventMsg.source.name;
+    var screenName = eventMsg.source.screen_name;
+    tweetIt('@' + screenName + ' Thank You for following me');
+}
+
 setInterval(tweetIt, 1000*20);
 
-tweetIt();
+//tweetIt();
 
 
-function tweetIt(){
+function tweetIt(txt){
     //to have different tweets always as we get error when tweet gets repeated
     /*
     var r = Math.floor(Math.random()*100);
@@ -25,8 +34,7 @@ function tweetIt(){
     }
     */ 
     var tweet = {
-        
-        status: '#HappyHalloween!!!'
+        status: txt
     }
     
     T.post('statuses/update', tweet, tweeted);

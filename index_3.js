@@ -10,9 +10,20 @@ var stream = T.stream('user');
 stream.on('tweet', tweetEvent);
 //a callback for 'tweet' event, when someone tweets me The function is executed
 function tweetEvent(eventMsg){
-    var fs = require('fs');
+    /*var fs = require('fs');
     var json = JSON.stringify(eventMsg,null,2);
-    fs.writeFile("tweet.json", json);
+    fs.writeFile("tweet.json", json);*/
+
+    var replyto = eventMsg.in_reply_to_screen_name;
+    var text = eventMsg.text;
+    var from = eventMsg.user.screen_name;
+
+    console.log(replyto + ' '+ from);
+
+    if(replyto ==='Anuradh99367944'){
+        var newtweet = '@' + from + 'thank You for tweeting me!';
+        tweetIt(newtweet);
+    }
 }
 function tweetIt(txt){
     //to have different tweets always as we get error when tweet gets repeated

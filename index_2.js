@@ -6,15 +6,14 @@ var T = new Twit(config);
 //Setting up a user stream
 var stream = T.stream('user');
 
-//Anytimesomeone follows me 
-
+//Anytime someone follows me 
 stream.on('follow', followed);
 //a callback for 'follow' event, when someone follows me The function is executed
 function followed(eventMsg){
     console.log('follow event');
     var name = eventMsg.source.name;
     var screenName = eventMsg.source.screen_name;
-    tweetIt('@'  + screenName  +' Thank You for following me');
+    tweetIt('.@'  + screenName  +' Thank You for following me');
 }
 
 //setInterval(tweetIt, 1000*20);
@@ -26,7 +25,7 @@ function tweetIt(txt){
     var tweet = {
         status: txt
     }
-   T.post('statuses/update', tweet, tweeted);
+    T.post('statuses/update', tweet, tweeted);
     
     function tweeted(err, data, response) {
         if(err){
